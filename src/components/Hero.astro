@@ -1,0 +1,70 @@
+---
+// 画像は public/images/ に差し替えてください（横長 1920x700 以上推奨）
+const slides = [
+  {
+    image: '/images/slide1.jpg',
+    title: '弁護士・公認会計士　細見孝次',
+    text: '石川県内唯一の弁護士・公認会計士ダブルライセンス',
+    cta: { href: '/lawyer', label: '弁護士紹介' },
+  },
+  {
+    image: '/images/slide2.jpg',
+    title: '法律と会計の両面から、解決まで伴走します',
+    text: '企業の顧問から相続・離婚などの個人のご相談まで',
+    cta: { href: '#practice', label: '取扱分野' },
+  },
+];
+---
+<section class="hero" aria-roledescription="carousel" aria-label="事務所紹介">
+  {slides.map((s, i) => (
+    <div class={`slide${i === 0 ? ' active' : ''}`} style={`--img:url(${s.image})`} aria-hidden={i === 0 ? 'false' : 'true'}>
+      <div class="copy">
+        <h1 class="title">{s.title}</h1>
+        <p>{s.text}</p>
+        <a class="btn" href={s.cta.href}>{s.cta.label}</a>
+      </div>
+    </div>
+  ))}
+  <button class="arrow prev" aria-label="前のスライド">‹</button>
+  <button class="arrow next" aria-label="次のスライド">›</button>
+  <div class="dots">
+    {slides.map((_, i) => <button aria-label={`${i + 1}枚目を表示`} aria-current={i === 0 ? 'true' : 'false'}></button>)}
+  </div>
+</section>
+<style>
+  .hero { position: relative; height: min(72vh, 640px); min-height: 420px; background: var(--navy); overflow: hidden; }
+  .slide { position: absolute; inset: 0; display: flex; align-items: center; opacity: 0; transition: opacity .9s ease; background: linear-gradient(135deg, #14213a, #3a2a24); }
+  .slide::before { content: ''; position: absolute; inset: 0; background: var(--img) center / cover no-repeat; }
+  .slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10, 18, 36, .75), rgba(10, 18, 36, .1) 70%); }
+  .slide.active { opacity: 1; z-index: 1; }
+  .copy { position: relative; z-index: 2; color: #fff; padding: 0 clamp(24px, 10vw, 160px); max-width: 860px; }
+  .title { font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 2.6rem); margin: 0 0 12px; line-height: 1.4; text-shadow: 0 2px 12px rgba(0, 0, 0, .5); }
+  .copy p { margin: 0 0 24px; font-size: clamp(.95rem, 1.6vw, 1.1rem); text-shadow: 0 1px 8px rgba(0, 0, 0, .5); }
+  .btn { display: inline-block; padding: 10px 28px; border: 1px solid #fff; color: #fff; text-decoration: none; font-size: .9rem; transition: background .2s, color .2s; }
+  .btn:hover { background: #fff; color: var(--navy); }
+  .arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; background: none; border: 0; color: #fff; font-size: 2.6rem; cursor: pointer; padding: 8px 14px; }
+  .prev { left: 4px; } .next { right: 4px; }
+  .dots { position: absolute; bottom: 18px; left: 0; right: 0; z-index: 3; display: flex; justify-content: center; gap: 10px; }
+  .dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; padding: 0; background: rgba(255, 255, 255, .5); cursor: pointer; }
+  .dots button[aria-current='true'] { background: #2f7bff; }
+  @media (prefers-reduced-motion: reduce) { .slide { transition: none; } }
+</style>
+<script>
+  const hero = document.querySelector('.hero') as HTMLElement;
+  const slides = [...hero.querySelectorAll<HTMLElement>('.slide')];
+  const dots = [...hero.querySelectorAll<HTMLElement>('.dots button')];
+  let cur = 0;
+  let timer: number | undefined;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(n: number) {
+    cur = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => { s.classList.toggle('active', i === cur); s.setAttribute('aria-hidden', String(i !== cur)); });
+    dots.forEach((d, i) => d.setAttribute('aria-current', String(i === cur)));
+  }
+  function start() { if (!reduce) timer = window.setInterval(() => show(cur + 1), 6000); }
+  function reset() { clearInterval(timer); start(); }
+  hero.querySelector('.prev')!.addEventListener('click', () => { show(cur - 1); reset(); });
+  hero.querySelector('.next')!.addEventListener('click', () => { show(cur + 1); reset(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { show(i); reset(); }));
+  start();
+</script>

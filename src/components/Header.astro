@@ -1,0 +1,21 @@
+---
+const links = [
+  { href: '/#strength', label: '当事務所の強み' },
+  { href: '/#practice', label: '取扱分野' },
+  { href: '/lawyer', label: '弁護士紹介' },
+  { href: '/#contact', label: 'アクセス・ご相談' },
+];
+---
+<header class="header">
+  <a class="brand" href="/">ネクスト法律事務所</a>
+  <nav aria-label="メインメニュー">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+</header>
+<style>
+  .header { position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 14px 24px; background: rgba(20, 33, 58, .94); color: #fff; }
+  .brand { font-family: var(--serif); font-weight: 700; font-size: 1.15rem; text-decoration: none; }
+  nav { display: flex; gap: 22px; flex-wrap: wrap; font-size: .9rem; }
+  nav a { text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav a:hover { border-color: var(--gold); }
+</style>

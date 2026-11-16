@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+const career = [
+  ['平成5年4月', '大阪大学法学部法学科 入学'],
+  ['平成10年', '司法試験合格'],
+  ['平成11年4月', '最高裁判所司法研修所 入所'],
+  ['平成12年10月', '司法研修所 卒業、弁護士登録'],
+  ['平成12年10月', '竹内総合法律事務所 入所'],
+  ['平成17年3月', '竹内総合法律事務所 退所'],
+  ['平成17年5月', 'ネクスト法律事務所 開設'],
+  ['平成21年', '公認会計士試験合格'],
+  ['平成25年9月', '細見公認会計士事務所 開設、公認会計士登録'],
+];
+---
+<Layout title="弁護士紹介｜ネクスト法律事務所" description="弁護士・公認会計士 細見孝次のプロフィール、経歴、業務実績。">
+  <section class="page-head"><div class="wrap"><h1>弁護士紹介</h1></div></section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>弁護士・公認会計士　細見孝次（ほそみ こうじ）</h2>
+      <table class="kv">
+        <tbody>
+          <tr><th>生年月日</th><td>昭和49年8月20日</td></tr>
+          <tr><th>所属事務所</th><td>ネクスト法律事務所<br />細見公認会計士事務所</td></tr>
+          <tr><th>事務所所在地</th><td>〒920-0902 石川県金沢市尾張町1丁目2-23 プチハイム尾張町1階</td></tr>
+          <tr><th>弁護士登録</th><td>平成12年10月（登録番号 第27913号）</td></tr>
+          <tr><th>公認会計士登録</th><td>平成25年9月（登録番号 第31075号）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <h2>略歴</h2>
+      <table class="kv">
+        <tbody>
+          {career.map(([d, t]) => <tr><th>{d}</th><td>{t}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>主な業務実績・役職</h2>
+      <div class="cols">
+        <div>
+          <h3>弁護士業務</h3>
+          <ul>
+            <li>金沢弁護士会 副会長（平成23年度）</li>
+            <li>日本弁護士連合会 倒産法制等検討委員会（令和4年度〜令和7年度）</li>
+          </ul>
+        </div>
+        <div>
+          <h3>監査業務（地方行政）</h3>
+          <ul>
+            <li>金沢市 包括外部監査補助者（平成26年〜令和元年）</li>
+            <li>富山市 包括外部監査補助者（令和3年〜令和5年）</li>
+            <li>石川県 包括外部監査補助者（令和5年〜令和7年）</li>
+          </ul>
+        </div>
+        <div>
+          <h3>監査業務（企業・法人、補助者実績）</h3>
+          <ul>
+            <li>製造業（東証スタンダード上場）</li>
+            <li>飲食店業（東証スタンダード上場）</li>
+            <li>信用金庫</li>
+            <li>公益社団法人 ほか</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <h2>M&amp;A関連（デューデリジェンス実績）</h2>
+      <p class="lead">設備工事業、運送業、廃棄物処理業など、さまざまな業種のM&amp;A案件で、各種デューデリジェンスの責任者または補助者を務めています。</p>
+      <div class="cols">
+        <div><h3>財務デューデリジェンス</h3><p>公認会計士業務</p></div>
+        <div><h3>事業デューデリジェンス</h3><p>公認会計士業務</p></div>
+        <div><h3>法務デューデリジェンス</h3><p>弁護士業務</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><a class="more" href="/#contact">ご相談・アクセス</a></div>
+  </section>
+</Layout>
+
+<style>
+  .page-head { background: var(--navy); color: #fff; padding: 40px 0; }
+  .page-head h1 { font-family: var(--serif); margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); }
+  h3 { font-family: var(--serif); color: var(--wood); margin: 0 0 8px; }
+  .kv { border-collapse: collapse; width: 100%; max-width: 760px; }
+  .kv th, .kv td { text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid #cfd3dc; vertical-align: top; }
+  .kv th { width: 9em; color: var(--wood); font-weight: 700; white-space: nowrap; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+  ul { margin: 0; padding-left: 1.2em; }
+  p { margin: 0; }
+  .lead { margin-bottom: 32px; }
+  .more { display: inline-block; padding: 10px 28px; border: 1px solid var(--navy); color: var(--navy); text-decoration: none; font-size: .9rem; }
+  .more:hover { background: var(--navy); color: #fff; }
+  @media (max-width: 560px) { .kv th { width: 7em; white-space: normal; } }
+</style>
